@@ -51,6 +51,7 @@ public class TrainController {
 
         List<Train> trains = trainRepository.findByCriteria(departureStat, arrivalStat, dateTime);
         List<Train> filteredTrains = new ArrayList<>();
+            if (trains.isEmpty())throw new EntityNotFoundException("No trains are available");
 
         for (Train train : trains) {
             if (travelClass.equals("First")) {
@@ -66,7 +67,6 @@ public class TrainController {
                     filteredTrains.add(train);
                 }
             }
-            else {throw new EntityNotFoundException("No trains are available"); }
         }
         return filteredTrains;
     }
